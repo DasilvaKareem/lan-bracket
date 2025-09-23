@@ -26,6 +26,7 @@ export default function RegisterForTournament() {
     name: '',
     gamertag: '',
     email: '',
+    countryCode: '+1',
     phone: '',
   })
 
@@ -55,7 +56,10 @@ export default function RegisterForTournament() {
       const response = await fetch(`/api/tournaments/${params.id}/players`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          phone: `${formData.countryCode}${formData.phone}`
+        }),
       })
 
       if (!response.ok) {
@@ -185,17 +189,48 @@ export default function RegisterForTournament() {
               <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-2">
                 WhatsApp Phone #
               </label>
-              <input
-                type="tel"
-                id="phone"
-                required
-                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
-                placeholder="+1 (555) 123-4567"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              />
+              <div className="flex gap-2">
+                <select
+                  value={formData.countryCode}
+                  onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
+                  className="px-3 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                  required
+                >
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+33">🇫🇷 +33</option>
+                  <option value="+49">🇩🇪 +49</option>
+                  <option value="+39">🇮🇹 +39</option>
+                  <option value="+34">🇪🇸 +34</option>
+                  <option value="+31">🇳🇱 +31</option>
+                  <option value="+46">🇸🇪 +46</option>
+                  <option value="+47">🇳🇴 +47</option>
+                  <option value="+45">🇩🇰 +45</option>
+                  <option value="+41">🇨🇭 +41</option>
+                  <option value="+43">🇦🇹 +43</option>
+                  <option value="+32">🇧🇪 +32</option>
+                  <option value="+351">🇵🇹 +351</option>
+                  <option value="+91">🇮🇳 +91</option>
+                  <option value="+86">🇨🇳 +86</option>
+                  <option value="+81">🇯🇵 +81</option>
+                  <option value="+82">🇰🇷 +82</option>
+                  <option value="+61">🇦🇺 +61</option>
+                  <option value="+55">🇧🇷 +55</option>
+                  <option value="+52">🇲🇽 +52</option>
+                  <option value="+7">🇷🇺 +7</option>
+                </select>
+                <input
+                  type="tel"
+                  id="phone"
+                  required
+                  className="flex-1 px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                  placeholder="555 123 4567"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/[^\d\s()-]/g, '') })}
+                />
+              </div>
               <p className="mt-2 text-sm text-slate-400">
-                Include country code (e.g., +1 for US/Canada). We'll use this to contact you if you fail to show up for your matches
+                Choose your country code and enter your WhatsApp number. We'll use this to contact you if you fail to show up for your matches.
               </p>
             </div>
 
