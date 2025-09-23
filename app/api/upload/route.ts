@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import { supabase } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,25 +26,34 @@ export async function POST(request: NextRequest) {
     const extension = file.name.split('.').pop()
     const filename = `tournament-${timestamp}-${randomString}.${extension}`
 
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = join(process.cwd(), 'public', 'uploads')
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
+    // Convert file to buffer
+    const bytes = await file.arrayBuffer()
+    const buffer = new Uint8Array(bytes)
+
+    // Upload to Supabase Storage
+    const { data, error } = await supabase.storage
+      .from('tournament-images')
+      .upload(filename, buffer, {
+        contentType: file.type,
+        upsert: false
+      })
+
+    if (error) {
+      console.error('Supabase upload error:', error)
+      return NextResponse.json(
+        { error: 'Failed to upload image to storage' },
+        { status: 500 }
+      )
     }
 
-    // Convert file to buffer and save
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-    const filePath = join(uploadsDir, filename)
-    
-    await writeFile(filePath, buffer)
-
-    // Return public URL
-    const imageUrl = `/uploads/${filename}`
+    // Get public URL
+    const { data: { publicUrl } } = supabase.storage
+      .from('tournament-images')
+      .getPublicUrl(filename)
 
     return NextResponse.json({
       success: true,
-      url: imageUrl,
+      url: publicUrl,
       filename
     })
   } catch (error) {
