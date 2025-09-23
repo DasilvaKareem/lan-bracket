@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum TournamentStatus {
+  registration_open
+  registration_closed
+  in_progress
+  completed
+}
+
+model Tournament {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String
+  description    String?
+  tournamentType String    @default("single_elimination") @map("tournament_type")
+  maxPlayers     Int       @default(8) @map("max_players")
+  status         TournamentStatus @default(registration_open)
+  adminPasscode  String    @map("admin_passcode")
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  coverPhoto     String?   @map("cover_photo")
+  endDateTime    DateTime? @map("end_date_time") @db.Timestamptz(6)
+  startDateTime  DateTime? @map("start_date_time") @db.Timestamptz(6)
+  matches        Match[]
+  players        Player[]
+
+  @@index([status], map: "idx_tournaments_status")
+  @@map("tournaments")
+}
+
+model Player {
+  id               String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tournamentId     String     @map("tournament_id") @db.Uuid
+  name             String
+  email            String?
+  seed             Int?
+  createdAt        DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  gamertag         String
+  phone            String?
+  matchesAsPlayer1 Match[]    @relation("Player1Matches")
+  matchesAsPlayer2 Match[]    @relation("Player2Matches")
+  wonMatches       Match[]    @relation("WonMatches")
+  tournament       Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([tournamentId], map: "idx_players_tournament_id")
+  @@map("players")
+}
+
+model Match {
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tournamentId String     @map("tournament_id") @db.Uuid
+  round        Int
+  matchNumber  Int        @map("match_number")
+  player1Id    String?    @map("player1_id") @db.Uuid
+  player2Id    String?    @map("player2_id") @db.Uuid
+  winnerId     String?    @map("winner_id") @db.Uuid
+  status       String     @default("pending")
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime   @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  player1      Player?    @relation("Player1Matches", fields: [player1Id], references: [id], onUpdate: NoAction)
+  player2      Player?    @relation("Player2Matches", fields: [player2Id], references: [id], onUpdate: NoAction)
+  tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  winner       Player?    @relation("WonMatches", fields: [winnerId], references: [id], onUpdate: NoAction)
+
+  @@index([tournamentId, round], map: "idx_matches_round")
+  @@index([tournamentId], map: "idx_matches_tournament_id")
+  @@map("matches")
+}
