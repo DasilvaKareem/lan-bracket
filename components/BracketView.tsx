@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Trophy, Crown, Maximize, Minimize } from 'lucide-react'
+import { Trophy, Crown, Maximize, Minimize, RotateCcw } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface Match {
@@ -58,6 +58,23 @@ export default function BracketView({ tournament, isAdmin, onUpdate }: BracketVi
       }
     } catch (error) {
       console.error('Error setting winner:', error)
+    }
+  }
+
+  const handleUndoWinner = async (matchId: string, e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent match selection
+    try {
+      const response = await fetch(`/api/tournaments/${tournament.id}/matches/${matchId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ winnerId: null, status: 'pending' }),
+      })
+
+      if (response.ok) {
+        onUpdate()
+      }
+    } catch (error) {
+      console.error('Error undoing winner:', error)
     }
   }
 
@@ -151,6 +168,18 @@ export default function BracketView({ tournament, isAdmin, onUpdate }: BracketVi
                       <p className="text-xs text-center text-slate-400 mt-2">
                         Click a player to declare winner
                       </p>
+                    )}
+
+                    {isAdmin && match.winner && (
+                      <div className="mt-3 flex justify-center">
+                        <button
+                          onClick={(e) => handleUndoWinner(match.id, e)}
+                          className="px-3 py-1.5 bg-slate-600/80 hover:bg-slate-500 text-white text-xs font-medium rounded-lg transition-all flex items-center gap-1.5"
+                        >
+                          <RotateCcw className="w-3 h-3" />
+                          Undo Winner
+                        </button>
+                      </div>
                     )}
                   </motion.div>
                 ))}
