@@ -114,39 +114,100 @@ export default function TournamentPage() {
         showBackToTournaments={true} 
         showBackToHome={true}
       />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-6 sm:px-8 py-8">
         {/* Tournament Hero Section */}
         <div className="mb-8">
           {tournament.coverPhoto ? (
-            <div className="relative rounded-2xl overflow-hidden">
-              <div className="aspect-[3/1] relative">
-                <img
-                  src={tournament.coverPhoto}
-                  alt={tournament.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent"></div>
-                <div className="absolute inset-0 p-8 flex items-end">
-                  <div className="flex-1">
-                    <h1 className="text-5xl font-bold text-white mb-3">{tournament.name}</h1>
-                    {tournament.description && (
-                      <p className="text-slate-200 text-lg mb-4 max-w-2xl">{tournament.description}</p>
-                    )}
-                    <div className="flex items-center gap-6 text-slate-300">
-                      <div className="flex items-center gap-2">
-                        <Users className="w-5 h-5" />
-                        <span className="text-lg font-medium">{tournament.players.length} / {tournament.maxPlayers} Players</span>
-                      </div>
-                      <div className="px-4 py-2 bg-slate-800/80 backdrop-blur-sm rounded-full text-sm font-medium border border-slate-600/50">
-                        {tournament.status.replace('_', ' ').toUpperCase()}
+            <>
+              {/* Desktop Hero */}
+              <div className="hidden lg:block relative rounded-2xl overflow-hidden">
+                <div className="aspect-[3/1] relative">
+                  <img
+                    src={tournament.coverPhoto}
+                    alt={tournament.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent"></div>
+                  <div className="absolute inset-0 p-8 flex items-end">
+                    <div className="flex-1">
+                      <h1 className="text-5xl font-bold text-white mb-3">{tournament.name}</h1>
+                      {tournament.description && (
+                        <p className="text-slate-200 text-lg mb-4 max-w-2xl">{tournament.description}</p>
+                      )}
+                      <div className="flex items-center gap-6 text-slate-300">
+                        <div className="flex items-center gap-2">
+                          <Users className="w-5 h-5" />
+                          <span className="text-lg font-medium">{tournament.players.length} / {tournament.maxPlayers} Players</span>
+                        </div>
+                        <div className="px-4 py-2 bg-slate-800/80 backdrop-blur-sm rounded-full text-sm font-medium border border-slate-600/50">
+                          {tournament.status.replace('_', ' ').toUpperCase()}
+                        </div>
                       </div>
                     </div>
+                    <div className="flex items-center gap-4">
+                      {canRegister && (
+                        <Link
+                          href={`/tournaments/${params.id}/register`}
+                          className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-500 hover:to-green-600 transition-all transform hover:scale-[1.02] shadow-lg"
+                        >
+                          <UserPlus className="w-5 h-5" />
+                          Register Now
+                        </Link>
+                      )}
+                      
+                      {!isAdmin && (
+                        <button
+                          onClick={() => setShowAdminLogin(true)}
+                          className="flex items-center gap-2 px-6 py-3 bg-slate-800/80 backdrop-blur-sm text-white rounded-xl hover:bg-slate-700/80 transition-all border border-slate-600/50"
+                        >
+                          <Shield className="w-5 h-5" />
+                          Admin Login
+                        </button>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-4">
+                </div>
+              </div>
+              
+              {/* Mobile Hero */}
+              <div className="lg:hidden">
+                {/* Cover Image */}
+                <div className="relative rounded-2xl overflow-hidden mb-6">
+                  <div className="aspect-[2/1] relative">
+                    <img
+                      src={tournament.coverPhoto}
+                      alt={tournament.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h1 className="text-2xl font-bold text-white mb-2">{tournament.name}</h1>
+                      {tournament.description && (
+                        <p className="text-slate-200 text-sm">{tournament.description}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Mobile Info and Actions */}
+                <div className="space-y-4">
+                  {/* Tournament Status */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-slate-300">
+                      <Users className="w-5 h-5" />
+                      <span className="font-medium">{tournament.players.length} / {tournament.maxPlayers} Players</span>
+                    </div>
+                    <div className="px-4 py-2 bg-slate-800/80 backdrop-blur-sm rounded-full text-sm font-medium border border-slate-600/50 text-white">
+                      {tournament.status.replace('_', ' ').toUpperCase()}
+                    </div>
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
                     {canRegister && (
                       <Link
                         href={`/tournaments/${params.id}/register`}
-                        className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-500 hover:to-green-600 transition-all transform hover:scale-[1.02] shadow-lg"
+                        className="flex-1 flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-500 hover:to-green-600 transition-all"
                       >
                         <UserPlus className="w-5 h-5" />
                         Register Now
@@ -156,7 +217,55 @@ export default function TournamentPage() {
                     {!isAdmin && (
                       <button
                         onClick={() => setShowAdminLogin(true)}
-                        className="flex items-center gap-2 px-6 py-3 bg-slate-800/80 backdrop-blur-sm text-white rounded-xl hover:bg-slate-700/80 transition-all border border-slate-600/50"
+                        className="flex items-center justify-center gap-2 px-6 py-3 bg-slate-800/80 backdrop-blur-sm text-white rounded-xl hover:bg-slate-700/80 transition-all border border-slate-600/50"
+                      >
+                        <Shield className="w-5 h-5" />
+                        Admin
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Desktop No Cover Photo */}
+              <div className="hidden lg:block bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <Trophy className="w-12 h-12 text-yellow-500 mr-4" />
+                    <div>
+                      <h1 className="text-4xl font-bold text-white mb-2">{tournament.name}</h1>
+                      {tournament.description && (
+                        <p className="text-slate-400 text-lg">{tournament.description}</p>
+                      )}
+                      <div className="flex items-center gap-6 text-slate-300 mt-4">
+                        <div className="flex items-center gap-2">
+                          <Users className="w-5 h-5" />
+                          <span className="text-lg font-medium">{tournament.players.length} / {tournament.maxPlayers} Players</span>
+                        </div>
+                        <div className="px-4 py-2 bg-slate-700/50 rounded-full text-sm font-medium">
+                          {tournament.status.replace('_', ' ').toUpperCase()}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    {canRegister && (
+                      <Link
+                        href={`/tournaments/${params.id}/register`}
+                        className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-500 hover:to-green-600 transition-all transform hover:scale-[1.02]"
+                      >
+                        <UserPlus className="w-5 h-5" />
+                        Register Now
+                      </Link>
+                    )}
+                    
+                    {!isAdmin && (
+                      <button
+                        onClick={() => setShowAdminLogin(true)}
+                        className="flex items-center gap-2 px-6 py-3 bg-slate-700 text-white rounded-xl hover:bg-slate-600 transition-colors"
                       >
                         <Shield className="w-5 h-5" />
                         Admin Login
@@ -165,52 +274,57 @@ export default function TournamentPage() {
                   </div>
                 </div>
               </div>
-            </div>
-          ) : (
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <Trophy className="w-12 h-12 text-yellow-500 mr-4" />
-                  <div>
-                    <h1 className="text-4xl font-bold text-white mb-2">{tournament.name}</h1>
-                    {tournament.description && (
-                      <p className="text-slate-400 text-lg">{tournament.description}</p>
-                    )}
-                    <div className="flex items-center gap-6 text-slate-300 mt-4">
-                      <div className="flex items-center gap-2">
-                        <Users className="w-5 h-5" />
-                        <span className="text-lg font-medium">{tournament.players.length} / {tournament.maxPlayers} Players</span>
-                      </div>
-                      <div className="px-4 py-2 bg-slate-700/50 rounded-full text-sm font-medium">
-                        {tournament.status.replace('_', ' ').toUpperCase()}
-                      </div>
+              
+              {/* Mobile No Cover Photo */}
+              <div className="lg:hidden">
+                {/* Tournament Header */}
+                <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 mb-6">
+                  <div className="flex items-start gap-4 mb-4">
+                    <Trophy className="w-10 h-10 text-yellow-500 flex-shrink-0 mt-1" />
+                    <div className="min-w-0">
+                      <h1 className="text-2xl font-bold text-white mb-2">{tournament.name}</h1>
+                      {tournament.description && (
+                        <p className="text-slate-400 text-sm">{tournament.description}</p>
+                      )}
                     </div>
                   </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  {canRegister && (
-                    <Link
-                      href={`/tournaments/${params.id}/register`}
-                      className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-500 hover:to-green-600 transition-all transform hover:scale-[1.02]"
-                    >
-                      <UserPlus className="w-5 h-5" />
-                      Register Now
-                    </Link>
-                  )}
                   
-                  {!isAdmin && (
-                    <button
-                      onClick={() => setShowAdminLogin(true)}
-                      className="flex items-center gap-2 px-6 py-3 bg-slate-700 text-white rounded-xl hover:bg-slate-600 transition-colors"
-                    >
-                      <Shield className="w-5 h-5" />
-                      Admin Login
-                    </button>
-                  )}
+                  {/* Tournament Info */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2 text-slate-300">
+                      <Users className="w-5 h-5" />
+                      <span className="font-medium">{tournament.players.length} / {tournament.maxPlayers} Players</span>
+                    </div>
+                    <div className="px-4 py-2 bg-slate-700/50 rounded-full text-sm font-medium text-white">
+                      {tournament.status.replace('_', ' ').toUpperCase()}
+                    </div>
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
+                    {canRegister && (
+                      <Link
+                        href={`/tournaments/${params.id}/register`}
+                        className="flex-1 flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-500 hover:to-green-600 transition-all"
+                      >
+                        <UserPlus className="w-5 h-5" />
+                        Register Now
+                      </Link>
+                    )}
+                    
+                    {!isAdmin && (
+                      <button
+                        onClick={() => setShowAdminLogin(true)}
+                        className="flex items-center justify-center gap-2 px-6 py-3 bg-slate-700 text-white rounded-xl hover:bg-slate-600 transition-colors"
+                      >
+                        <Shield className="w-5 h-5" />
+                        Admin
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
+            </>
           )}
         </div>
 
@@ -292,7 +406,7 @@ export default function TournamentPage() {
             ) : (
               /* Players Tab */
               <div className="mb-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {tournament.players
                     .sort((a, b) => (a.seed || 999) - (b.seed || 999))
                     .map((player) => (

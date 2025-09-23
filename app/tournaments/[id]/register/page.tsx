@@ -189,11 +189,11 @@ export default function RegisterForTournament() {
               <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-2">
                 WhatsApp Phone #
               </label>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <select
                   value={formData.countryCode}
                   onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-                  className="px-3 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                  className="w-full sm:w-auto px-3 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                   required
                 >
                   <option value="+1">🇺🇸 +1</option>

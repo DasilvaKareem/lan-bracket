@@ -68,7 +68,7 @@ export default function TournamentsPage() {
       <Header 
         showBackToHome={true}
       />
-      <div className="max-w-6xl mx-auto p-4">
+      <div className="max-w-6xl mx-auto p-6 sm:p-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">Active Tournaments</h1>
           <p className="text-slate-400">Join or spectate ongoing tournaments</p>
@@ -81,7 +81,7 @@ export default function TournamentsPage() {
             <p className="text-slate-500 mt-2">Be the first to create one!</p>
           </div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {tournaments.map((tournament) => (
               <Link
                 key={tournament.id}

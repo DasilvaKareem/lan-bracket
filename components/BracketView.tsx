@@ -89,10 +89,10 @@ export default function BracketView({ tournament, isAdmin, onUpdate }: BracketVi
   const bracketContent = (
     <>
       <div className="overflow-x-auto pb-4">
-        <div className="flex gap-8 min-w-max">
+        <div className="flex gap-4 sm:gap-8 min-w-max">
           {rounds.map((round) => (
-            <div key={round} className="flex-1 min-w-[300px]">
-              <h3 className="text-lg font-semibold text-slate-300 mb-4 text-center">
+            <div key={round} className="flex-1 min-w-[280px] sm:min-w-[300px]">
+              <h3 className="text-sm sm:text-lg font-semibold text-slate-300 mb-3 sm:mb-4 text-center">
                 {getRoundName(round)}
               </h3>
               <div className="space-y-4">
@@ -101,7 +101,7 @@ export default function BracketView({ tournament, isAdmin, onUpdate }: BracketVi
                     key={match.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`bg-slate-800/50 backdrop-blur-sm rounded-lg p-4 border-2 transition-all ${
+                    className={`bg-slate-800/50 backdrop-blur-sm rounded-lg p-3 sm:p-4 border-2 transition-all ${
                       selectedMatch === match.id ? 'border-blue-500' : 'border-slate-700'
                     }`}
                     onClick={() => isAdmin && setSelectedMatch(match.id)}
@@ -109,7 +109,7 @@ export default function BracketView({ tournament, isAdmin, onUpdate }: BracketVi
                     <div className="space-y-2">
                       {/* Player 1 */}
                       <div
-                        className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all ${
+                        className={`flex items-center justify-between p-2 sm:p-3 rounded-lg cursor-pointer transition-all ${
                           match.winner?.id === match.player1?.id
                             ? 'bg-green-600/20 border border-green-500'
                             : 'bg-slate-700/50 hover:bg-slate-700'
@@ -120,7 +120,7 @@ export default function BracketView({ tournament, isAdmin, onUpdate }: BracketVi
                           }
                         }}
                       >
-                        <span className={`font-medium ${match.player1 ? 'text-white' : 'text-slate-500'}`}>
+                        <span className={`font-medium text-sm sm:text-base ${match.player1 ? 'text-white' : 'text-slate-500'}`}>
                           {match.player1?.gamertag || 'TBD'}
                         </span>
                         {match.winner?.id === match.player1?.id && (
@@ -134,11 +134,11 @@ export default function BracketView({ tournament, isAdmin, onUpdate }: BracketVi
                         )}
                       </div>
 
-                      <div className="text-center text-slate-500 text-sm">VS</div>
+                      <div className="text-center text-slate-500 text-xs sm:text-sm py-1">VS</div>
 
                       {/* Player 2 */}
                       <div
-                        className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all ${
+                        className={`flex items-center justify-between p-2 sm:p-3 rounded-lg cursor-pointer transition-all ${
                           match.winner?.id === match.player2?.id
                             ? 'bg-green-600/20 border border-green-500'
                             : 'bg-slate-700/50 hover:bg-slate-700'
@@ -149,7 +149,7 @@ export default function BracketView({ tournament, isAdmin, onUpdate }: BracketVi
                           }
                         }}
                       >
-                        <span className={`font-medium ${match.player2 ? 'text-white' : 'text-slate-500'}`}>
+                        <span className={`font-medium text-sm sm:text-base ${match.player2 ? 'text-white' : 'text-slate-500'}`}>
                           {match.player2?.gamertag || 'TBD'}
                         </span>
                         {match.winner?.id === match.player2?.id && (
@@ -165,19 +165,20 @@ export default function BracketView({ tournament, isAdmin, onUpdate }: BracketVi
                     </div>
 
                     {isAdmin && match.player1 && match.player2 && !match.winner && (
-                      <p className="text-xs text-center text-slate-400 mt-2">
+                      <p className="text-xs text-center text-slate-400 mt-1 sm:mt-2">
                         Click a player to declare winner
                       </p>
                     )}
 
                     {isAdmin && match.winner && (
-                      <div className="mt-3 flex justify-center">
+                      <div className="mt-2 sm:mt-3 flex justify-center">
                         <button
                           onClick={(e) => handleUndoWinner(match.id, e)}
-                          className="px-3 py-1.5 bg-slate-600/80 hover:bg-slate-500 text-white text-xs font-medium rounded-lg transition-all flex items-center gap-1.5"
+                          className="px-2 sm:px-3 py-1 sm:py-1.5 bg-slate-600/80 hover:bg-slate-500 text-white text-xs font-medium rounded-lg transition-all flex items-center gap-1 sm:gap-1.5"
                         >
                           <RotateCcw className="w-3 h-3" />
-                          Undo Winner
+                          <span className="hidden sm:inline">Undo Winner</span>
+                          <span className="sm:hidden">Undo</span>
                         </button>
                       </div>
                     )}

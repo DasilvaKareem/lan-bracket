@@ -3,7 +3,7 @@ import { Trophy, Users } from 'lucide-react'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 to-slate-900 flex items-center justify-center p-6 sm:p-8">
       <div className="max-w-4xl mx-auto text-center">
         <div className="mb-8">
           <Trophy className="w-24 h-24 mx-auto text-yellow-500 mb-4" />
