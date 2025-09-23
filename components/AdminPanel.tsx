@@ -292,6 +292,7 @@ export default function AdminPanel({ tournament, onUpdate, onDelete }: AdminPane
           </div>
         </div>
 
+
         {/* General Controls */}
         <div>
           <h3 className="text-lg font-semibold text-white mb-3">General</h3>
@@ -387,23 +388,26 @@ export default function AdminPanel({ tournament, onUpdate, onDelete }: AdminPane
 
         {/* Danger Zone */}
         <div className="border-t border-red-900/30 pt-6">
-          <h3 className="text-lg font-semibold text-red-400 mb-3 flex items-center gap-2">
-            <Trash2 className="w-5 h-5" />
-            Danger Zone
-          </h3>
-          <div className="bg-red-950/20 border border-red-900/30 rounded-lg p-4">
-            <button
-              onClick={handleDeleteTournament}
-              disabled={loading}
-              className="px-5 py-2.5 bg-red-600/80 hover:bg-red-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-            >
-              <Trash2 className="w-4 h-4" />
-              Delete Tournament
-            </button>
-            <p className="text-sm text-red-300/70 mt-2">
-              Permanently delete tournament and all data
-            </p>
-          </div>
+          <details className="group">
+            <summary className="text-lg font-semibold text-red-400 mb-3 flex items-center gap-2 cursor-pointer hover:text-red-300 transition-colors list-none">
+              <Trash2 className="w-5 h-5" />
+              Danger Zone
+              <span className="ml-auto text-sm text-slate-500 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="bg-red-950/20 border border-red-900/30 rounded-lg p-4 mt-3">
+              <button
+                onClick={handleDeleteTournament}
+                disabled={loading}
+                className="px-5 py-2.5 bg-red-600/80 hover:bg-red-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              >
+                <Trash2 className="w-4 h-4" />
+                Delete Tournament
+              </button>
+              <p className="text-sm text-red-300/70 mt-2">
+                Permanently delete tournament and all data
+              </p>
+            </div>
+          </details>
         </div>
       </div>
 
