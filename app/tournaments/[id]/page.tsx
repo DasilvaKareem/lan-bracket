@@ -214,6 +214,15 @@ export default function TournamentPage() {
           )}
         </div>
 
+        {/* Admin Panel */}
+        {isAdmin && (
+          <AdminPanel
+            tournament={tournament}
+            onUpdate={fetchTournament}
+            onDelete={handleTournamentDelete}
+          />
+        )}
+
         {/* Main Content Area */}
         {tournament.status === 'registration_open' && tournament.players.length === 0 ? (
           <div className="text-center py-16">
@@ -275,7 +284,7 @@ export default function TournamentPage() {
                     <h2 className="text-2xl text-white mb-2">Tournament Not Started</h2>
                     <p className="text-slate-400 mb-6">The bracket will appear once the tournament begins</p>
                     {isAdmin && tournament.players.length >= 2 && (
-                      <p className="text-blue-400">Use the admin panel below to start the tournament</p>
+                      <p className="text-blue-400">Use the admin panel above to start the tournament</p>
                     )}
                   </div>
                 )}
@@ -323,15 +332,6 @@ export default function TournamentPage() {
               </div>
             )}
           </>
-        )}
-
-        {/* Admin Panel */}
-        {isAdmin && (
-          <AdminPanel
-            tournament={tournament}
-            onUpdate={fetchTournament}
-            onDelete={handleTournamentDelete}
-          />
         )}
 
         {/* Admin Login Dialog */}

@@ -55,15 +55,18 @@ export default function ImageUpload({ value, onChange, className = '' }: ImageUp
     } catch (error) {
       console.error('Upload error:', error)
       
-      // For development/demo: Create local preview URL
-      // In production, you'd want proper error handling
+      // Fallback: Convert to data URL for immediate use
       try {
-        const localUrl = URL.createObjectURL(file)
-        setPreview(localUrl)
-        onChange(localUrl)
-        console.log('Using local preview URL for development')
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          const dataUrl = e.target?.result as string
+          setPreview(dataUrl)
+          onChange(dataUrl)
+          console.log('Using data URL as fallback')
+        }
+        reader.readAsDataURL(file)
       } catch (previewError) {
-        console.error('Failed to create preview:', previewError)
+        console.error('Failed to create data URL:', previewError)
         alert('Failed to upload image. Please try again.')
       }
     } finally {
