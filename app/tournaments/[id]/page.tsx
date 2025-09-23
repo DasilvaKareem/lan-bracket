@@ -312,9 +312,6 @@ export default function TournamentPage() {
                         <div className="text-sm text-slate-400">{player.name}</div>
                       </div>
                       <div className="flex items-center gap-2">
-                        {player.seed && (
-                          <span className="text-slate-400">Seed #{player.seed}</span>
-                        )}
                         {isAdmin && (
                           <div className="w-6 h-6 bg-slate-700/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                             <Users className="w-3 h-3 text-slate-300" />
