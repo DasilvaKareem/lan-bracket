@@ -15,25 +15,13 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-          <Link
-            href="/register"
-            className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative z-10">
-              <Trophy className="w-12 h-12 mb-4 mx-auto" />
-              <h2 className="text-2xl font-bold mb-2">Create Tournament</h2>
-              <p className="text-blue-100">Start a new tournament bracket</p>
-            </div>
-          </Link>
-
+        <div className="max-w-md mx-auto">
           <Link
             href="/tournaments"
-            className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-purple-700 text-white p-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+            className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-purple-700 text-white p-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 block"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative z-10">
+            <div className="relative z-10 text-center">
               <Users className="w-12 h-12 mb-4 mx-auto" />
               <h2 className="text-2xl font-bold mb-2">View Tournaments</h2>
               <p className="text-purple-100">Browse active tournaments</p>
