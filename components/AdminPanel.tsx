@@ -253,57 +253,59 @@ export default function AdminPanel({ tournament, onUpdate, onDelete }: AdminPane
 
 
   return (
-    <div className="mt-8 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden">
+    <div className="mt-4 sm:mt-6 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-slate-700/50 overflow-hidden">
       {/* Header */}
-      <div className="bg-slate-800/80 px-6 py-4 border-b border-slate-700/50">
-        <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-          <div className="p-2 bg-slate-700/50 rounded-lg">
-            <Shield className="w-6 h-6 text-blue-400" />
+      <div className="bg-slate-800/80 px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-700/50">
+        <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 sm:gap-3">
+          <div className="p-1.5 sm:p-2 bg-slate-700/50 rounded-lg">
+            <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
           </div>
-          Admin Dashboard
+          <span className="hidden sm:inline">Admin Dashboard</span>
+          <span className="sm:hidden">Admin</span>
         </h2>
       </div>
 
-      <div className="p-6 space-y-6">
+      <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
         {/* Tournament Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-slate-800/40 rounded-xl p-4 border border-slate-700/30">
-            <div className="flex items-center gap-2 text-slate-400 mb-1">
-              <Users className="w-4 h-4" />
-              <span className="text-sm font-medium">Players</span>
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
+          <div className="bg-slate-800/40 rounded-lg p-3 sm:p-4 border border-slate-700/30">
+            <div className="flex items-center gap-1.5 sm:gap-2 text-slate-400 mb-1">
+              <Users className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="text-xs sm:text-sm font-medium">Players</span>
             </div>
-            <div className="text-2xl font-bold text-white">{tournament.players.length} / {tournament.maxPlayers}</div>
-          </div>
-          
-          <div className="bg-slate-800/40 rounded-xl p-4 border border-slate-700/30">
-            <div className="flex items-center gap-2 text-slate-400 mb-1">
-              <Trophy className="w-4 h-4" />
-              <span className="text-sm font-medium">Status</span>
-            </div>
-            <div className="text-lg font-semibold text-white capitalize">{tournament.status.replace('_', ' ')}</div>
+            <div className="text-lg sm:text-2xl font-bold text-white">{tournament.players.length} / {tournament.maxPlayers}</div>
           </div>
 
-          <div className="bg-slate-800/40 rounded-xl p-4 border border-slate-700/30">
-            <div className="flex items-center gap-2 text-slate-400 mb-1">
-              <Play className="w-4 h-4" />
-              <span className="text-sm font-medium">Matches</span>
+          <div className="bg-slate-800/40 rounded-lg p-3 sm:p-4 border border-slate-700/30">
+            <div className="flex items-center gap-1.5 sm:gap-2 text-slate-400 mb-1">
+              <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="text-xs sm:text-sm font-medium">Status</span>
             </div>
-            <div className="text-2xl font-bold text-white">{tournament.matches?.length || 0}</div>
+            <div className="text-sm sm:text-lg font-semibold text-white capitalize">{tournament.status.replace('_', ' ')}</div>
+          </div>
+
+          <div className="bg-slate-800/40 rounded-lg p-3 sm:p-4 border border-slate-700/30">
+            <div className="flex items-center gap-1.5 sm:gap-2 text-slate-400 mb-1">
+              <Play className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="text-xs sm:text-sm font-medium">Matches</span>
+            </div>
+            <div className="text-lg sm:text-2xl font-bold text-white">{tournament.matches?.length || 0}</div>
           </div>
         </div>
 
 
         {/* General Controls */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">General</h3>
-          <div className="flex flex-wrap gap-3">
+          <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">General</h3>
+          <div className="flex flex-wrap gap-2 sm:gap-3">
             <button
               onClick={handleEditTournament}
               disabled={loading}
-              className="px-5 py-2.5 bg-slate-700/60 hover:bg-slate-600/60 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 border border-slate-600/30"
+              className="px-3 sm:px-5 py-2 sm:py-2.5 bg-slate-700/60 hover:bg-slate-600/60 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 sm:gap-2 border border-slate-600/30 text-sm sm:text-base"
             >
-              <Edit3 className="w-4 h-4" />
-              Edit Details
+              <Edit3 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Edit Details</span>
+              <span className="sm:hidden">Edit</span>
             </button>
           </div>
         </div>
@@ -311,24 +313,26 @@ export default function AdminPanel({ tournament, onUpdate, onDelete }: AdminPane
         {/* Registration Controls */}
         {tournament.status === 'registration_open' && (
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">Registration</h3>
-            <div className="flex flex-wrap gap-3">
+            <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Registration</h3>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               <button
                 onClick={handleShufflePlayers}
                 disabled={loading || tournament.players.length < 2}
-                className="px-5 py-2.5 bg-purple-600/80 hover:bg-purple-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-purple-600/80 hover:bg-purple-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base"
               >
-                <Shuffle className="w-4 h-4" />
-                Shuffle Seeds
+                <Shuffle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Shuffle Seeds</span>
+                <span className="sm:hidden">Shuffle</span>
               </button>
 
               <button
                 onClick={handleCloseRegistration}
                 disabled={loading}
-                className="px-5 py-2.5 bg-orange-600/80 hover:bg-orange-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-orange-600/80 hover:bg-orange-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base"
               >
-                <Lock className="w-4 h-4" />
-                Close Registration
+                <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Close Registration</span>
+                <span className="sm:hidden">Close</span>
               </button>
             </div>
           </div>
@@ -336,15 +340,16 @@ export default function AdminPanel({ tournament, onUpdate, onDelete }: AdminPane
 
         {tournament.status === 'registration_closed' && (
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">Registration</h3>
-            <div className="flex flex-wrap gap-3">
+            <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Registration</h3>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               <button
                 onClick={handleOpenRegistration}
                 disabled={loading}
-                className="px-5 py-2.5 bg-green-600/80 hover:bg-green-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-green-600/80 hover:bg-green-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base"
               >
-                <Unlock className="w-4 h-4" />
-                Reopen Registration
+                <Unlock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Reopen Registration</span>
+                <span className="sm:hidden">Reopen</span>
               </button>
             </div>
           </div>
@@ -353,33 +358,34 @@ export default function AdminPanel({ tournament, onUpdate, onDelete }: AdminPane
         {/* Tournament Controls */}
         {(tournament.status === 'registration_open' || tournament.status === 'registration_closed') && (
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">Tournament</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Tournament</h3>
             <button
               onClick={handleStartTournament}
               disabled={loading || tournament.players.length < 2}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 sm:gap-2 shadow-lg text-sm sm:text-base"
             >
-              <Play className="w-5 h-5" />
+              <Play className="w-4 h-4 sm:w-5 sm:h-5" />
               Start Tournament
             </button>
             {tournament.players.length < 2 && (
-              <p className="text-sm text-slate-400 mt-2">Need at least 2 players to start</p>
+              <p className="text-xs sm:text-sm text-slate-400 mt-2">Need at least 2 players to start</p>
             )}
           </div>
         )}
 
         {tournament.status === 'in_progress' && (
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">Tournament</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Tournament</h3>
             <button
               onClick={handleResetTournament}
               disabled={loading}
-              className="px-5 py-2.5 bg-orange-600/80 hover:bg-orange-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="px-3 sm:px-5 py-2 sm:py-2.5 bg-orange-600/80 hover:bg-orange-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base"
             >
-              <RotateCcw className="w-4 h-4" />
-              Reset Tournament
+              <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Reset Tournament</span>
+              <span className="sm:hidden">Reset</span>
             </button>
-            <p className="text-sm text-slate-400 mt-2">
+            <p className="text-xs sm:text-sm text-slate-400 mt-2">
               Clear all matches and return to registration phase
             </p>
           </div>
@@ -387,23 +393,24 @@ export default function AdminPanel({ tournament, onUpdate, onDelete }: AdminPane
 
 
         {/* Danger Zone */}
-        <div className="border-t border-red-900/30 pt-6">
+        <div className="border-t border-red-900/30 pt-4 sm:pt-6">
           <details className="group">
-            <summary className="text-lg font-semibold text-red-400 mb-3 flex items-center gap-2 cursor-pointer hover:text-red-300 transition-colors list-none">
-              <Trash2 className="w-5 h-5" />
+            <summary className="text-base sm:text-lg font-semibold text-red-400 mb-2 sm:mb-3 flex items-center gap-2 cursor-pointer hover:text-red-300 transition-colors list-none">
+              <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
               Danger Zone
               <span className="ml-auto text-sm text-slate-500 group-open:rotate-180 transition-transform">▼</span>
             </summary>
-            <div className="bg-red-950/20 border border-red-900/30 rounded-lg p-4 mt-3">
+            <div className="bg-red-950/20 border border-red-900/30 rounded-lg p-3 sm:p-4 mt-2 sm:mt-3">
               <button
                 onClick={handleDeleteTournament}
                 disabled={loading}
-                className="px-5 py-2.5 bg-red-600/80 hover:bg-red-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-red-600/80 hover:bg-red-600 text-white font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base"
               >
-                <Trash2 className="w-4 h-4" />
-                Delete Tournament
+                <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Delete Tournament</span>
+                <span className="sm:hidden">Delete</span>
               </button>
-              <p className="text-sm text-red-300/70 mt-2">
+              <p className="text-xs sm:text-sm text-red-300/70 mt-2">
                 Permanently delete tournament and all data
               </p>
             </div>

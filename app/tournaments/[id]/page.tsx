@@ -114,9 +114,9 @@ export default function TournamentPage() {
         showBackToTournaments={true} 
         showBackToHome={true}
       />
-      <div className="container mx-auto px-6 sm:px-8 py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
         {/* Tournament Hero Section */}
-        <div className="mb-8">
+        <div className="mb-4 sm:mb-6">
           {tournament.coverPhoto ? (
             <>
               {/* Desktop Hero */}
@@ -171,55 +171,55 @@ export default function TournamentPage() {
               
               {/* Mobile Hero */}
               <div className="lg:hidden">
-                {/* Cover Image */}
-                <div className="relative rounded-2xl overflow-hidden mb-6">
-                  <div className="aspect-[2/1] relative">
+                {/* Compact Cover Image */}
+                <div className="relative rounded-xl overflow-hidden mb-3">
+                  <div className="aspect-[3/1] relative">
                     <img
                       src={tournament.coverPhoto}
                       alt={tournament.name}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h1 className="text-2xl font-bold text-white mb-2">{tournament.name}</h1>
+                    <div className="absolute bottom-2 left-3 right-3">
+                      <h1 className="text-xl font-bold text-white mb-1">{tournament.name}</h1>
                       {tournament.description && (
-                        <p className="text-slate-200 text-sm">{tournament.description}</p>
+                        <p className="text-slate-200 text-xs line-clamp-2">{tournament.description}</p>
                       )}
                     </div>
                   </div>
                 </div>
-                
-                {/* Mobile Info and Actions */}
-                <div className="space-y-4">
+
+                {/* Compact Mobile Info and Actions */}
+                <div className="space-y-3">
                   {/* Tournament Status */}
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center gap-2 text-slate-300">
-                      <Users className="w-5 h-5" />
-                      <span className="font-medium">{tournament.players.length} / {tournament.maxPlayers} Players</span>
+                      <Users className="w-4 h-4" />
+                      <span className="font-medium">{tournament.players.length} / {tournament.maxPlayers}</span>
                     </div>
-                    <div className="px-4 py-2 bg-slate-800/80 backdrop-blur-sm rounded-full text-sm font-medium border border-slate-600/50 text-white">
+                    <div className="px-3 py-1.5 bg-slate-800/80 backdrop-blur-sm rounded-full text-xs font-medium border border-slate-600/50 text-white">
                       {tournament.status.replace('_', ' ').toUpperCase()}
                     </div>
                   </div>
-                  
-                  {/* Action Buttons */}
-                  <div className="flex gap-3">
+
+                  {/* Compact Action Buttons */}
+                  <div className="flex gap-2">
                     {canRegister && (
                       <Link
                         href={`/tournaments/${params.id}/register`}
-                        className="flex-1 flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-500 hover:to-green-600 transition-all"
+                        className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg hover:from-green-500 hover:to-green-600 transition-all text-sm"
                       >
-                        <UserPlus className="w-5 h-5" />
-                        Register Now
+                        <UserPlus className="w-4 h-4" />
+                        Register
                       </Link>
                     )}
-                    
+
                     {!isAdmin && (
                       <button
                         onClick={() => setShowAdminLogin(true)}
-                        className="flex items-center justify-center gap-2 px-6 py-3 bg-slate-800/80 backdrop-blur-sm text-white rounded-xl hover:bg-slate-700/80 transition-all border border-slate-600/50"
+                        className="flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800/80 backdrop-blur-sm text-white rounded-lg hover:bg-slate-700/80 transition-all border border-slate-600/50 text-sm"
                       >
-                        <Shield className="w-5 h-5" />
+                        <Shield className="w-4 h-4" />
                         Admin
                       </button>
                     )}
@@ -277,47 +277,47 @@ export default function TournamentPage() {
               
               {/* Mobile No Cover Photo */}
               <div className="lg:hidden">
-                {/* Tournament Header */}
-                <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 mb-6">
-                  <div className="flex items-start gap-4 mb-4">
-                    <Trophy className="w-10 h-10 text-yellow-500 flex-shrink-0 mt-1" />
+                {/* Compact Tournament Header */}
+                <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4">
+                  <div className="flex items-start gap-3 mb-3">
+                    <Trophy className="w-8 h-8 text-yellow-500 flex-shrink-0" />
                     <div className="min-w-0">
-                      <h1 className="text-2xl font-bold text-white mb-2">{tournament.name}</h1>
+                      <h1 className="text-xl font-bold text-white mb-1">{tournament.name}</h1>
                       {tournament.description && (
-                        <p className="text-slate-400 text-sm">{tournament.description}</p>
+                        <p className="text-slate-400 text-xs line-clamp-2">{tournament.description}</p>
                       )}
                     </div>
                   </div>
-                  
+
                   {/* Tournament Info */}
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-between mb-3 text-sm">
                     <div className="flex items-center gap-2 text-slate-300">
-                      <Users className="w-5 h-5" />
-                      <span className="font-medium">{tournament.players.length} / {tournament.maxPlayers} Players</span>
+                      <Users className="w-4 h-4" />
+                      <span className="font-medium">{tournament.players.length} / {tournament.maxPlayers}</span>
                     </div>
-                    <div className="px-4 py-2 bg-slate-700/50 rounded-full text-sm font-medium text-white">
+                    <div className="px-3 py-1.5 bg-slate-700/50 rounded-full text-xs font-medium text-white">
                       {tournament.status.replace('_', ' ').toUpperCase()}
                     </div>
                   </div>
-                  
+
                   {/* Action Buttons */}
-                  <div className="flex gap-3">
+                  <div className="flex gap-2">
                     {canRegister && (
                       <Link
                         href={`/tournaments/${params.id}/register`}
-                        className="flex-1 flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-500 hover:to-green-600 transition-all"
+                        className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg hover:from-green-500 hover:to-green-600 transition-all text-sm"
                       >
-                        <UserPlus className="w-5 h-5" />
-                        Register Now
+                        <UserPlus className="w-4 h-4" />
+                        Register
                       </Link>
                     )}
-                    
+
                     {!isAdmin && (
                       <button
                         onClick={() => setShowAdminLogin(true)}
-                        className="flex items-center justify-center gap-2 px-6 py-3 bg-slate-700 text-white rounded-xl hover:bg-slate-600 transition-colors"
+                        className="flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors text-sm"
                       >
-                        <Shield className="w-5 h-5" />
+                        <Shield className="w-4 h-4" />
                         Admin
                       </button>
                     )}
@@ -356,29 +356,31 @@ export default function TournamentPage() {
         ) : (
           <>
             {/* Tabs */}
-            <div className="mb-6">
-              <div className="flex space-x-1 bg-slate-800/50 p-1 rounded-xl">
+            <div className="mb-4">
+              <div className="flex space-x-1 bg-slate-800/50 p-1 rounded-lg">
                 <button
                   onClick={() => setActiveTab('bracket')}
-                  className={`flex-1 py-3 px-4 text-sm font-medium rounded-lg transition-all ${
+                  className={`flex-1 py-2.5 px-3 text-sm font-medium rounded-md transition-all ${
                     activeTab === 'bracket'
                       ? 'bg-slate-700 text-white shadow-lg'
                       : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
                   }`}
                 >
-                  <Trophy className="w-4 h-4 inline mr-2" />
+                  <Trophy className="w-4 h-4 inline mr-1.5" />
                   Bracket
                 </button>
                 <button
                   onClick={() => setActiveTab('players')}
-                  className={`flex-1 py-3 px-4 text-sm font-medium rounded-lg transition-all ${
+                  className={`flex-1 py-2.5 px-3 text-sm font-medium rounded-md transition-all ${
                     activeTab === 'players'
                       ? 'bg-slate-700 text-white shadow-lg'
                       : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
                   }`}
                 >
-                  <Users className="w-4 h-4 inline mr-2" />
-                  Players ({tournament.players.length})
+                  <Users className="w-4 h-4 inline mr-1.5" />
+                  <span className="hidden sm:inline">Players</span>
+                  <span className="sm:hidden">({tournament.players.length})</span>
+                  <span className="hidden sm:inline"> ({tournament.players.length})</span>
                 </button>
               </div>
             </div>
@@ -405,30 +407,30 @@ export default function TournamentPage() {
               </>
             ) : (
               /* Players Tab */
-              <div className="mb-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {tournament.players
                     .sort((a, b) => (a.seed || 999) - (b.seed || 999))
                     .map((player) => (
                     <div
                       key={player.id}
                       onClick={() => handlePlayerClick(player)}
-                      className={`bg-slate-800/50 backdrop-blur-sm rounded-lg p-4 flex items-center justify-between transition-all ${
-                        isAdmin 
-                          ? 'hover:bg-slate-700/50 hover:scale-[1.02] cursor-pointer group' 
+                      className={`bg-slate-800/50 backdrop-blur-sm rounded-lg p-3 flex items-center justify-between transition-all ${
+                        isAdmin
+                          ? 'hover:bg-slate-700/50 hover:scale-[1.02] cursor-pointer group'
                           : ''
                       }`}
                     >
-                      <div>
-                        <span className={`text-white font-medium ${isAdmin ? 'group-hover:text-blue-400' : ''} transition-colors`}>
+                      <div className="min-w-0">
+                        <span className={`text-white font-medium text-sm ${isAdmin ? 'group-hover:text-blue-400' : ''} transition-colors block truncate`}>
                           {player.gamertag}
                         </span>
-                        <div className="text-sm text-slate-400">{player.name}</div>
+                        <div className="text-xs text-slate-400 truncate">{player.name}</div>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-shrink-0">
                         {isAdmin && (
-                          <div className="w-6 h-6 bg-slate-700/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Users className="w-3 h-3 text-slate-300" />
+                          <div className="w-5 h-5 bg-slate-700/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <Users className="w-2.5 h-2.5 text-slate-300" />
                           </div>
                         )}
                       </div>
@@ -436,7 +438,7 @@ export default function TournamentPage() {
                   ))}
                 </div>
                 {isAdmin && tournament.players.length > 0 && (
-                  <p className="text-sm text-slate-400 mt-4 text-center">
+                  <p className="text-xs text-slate-400 mt-3 text-center">
                     💡 Click on any player to view their details
                   </p>
                 )}
